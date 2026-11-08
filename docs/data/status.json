@@ -1,16 +1,16 @@
 {
- "updated": "2026-11-08T14:40:26+09:00",
+ "updated": "2026-11-08T14:45:59+09:00",
  "depart_date": "2026-12-20",
  "return_date": "2026-12-22",
  "routes": [
   {
-   "id": "NGO",
-   "name": "中部国際空港 ⇄ ソウル",
-   "from": "NGO",
+   "id": "FSZ",
+   "name": "静岡空港 ⇄ ソウル",
+   "from": "FSZ",
    "to": "SEL",
-   "target_price": 30000,
-   "search_url": "https://jp.trip.com/flights/showfarefirst?dcity=ngo&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY",
-   "last_ok": "2026-11-08T14:40:26+09:00",
+   "target_price": 40000,
+   "search_url": "https://jp.trip.com/flights/showfarefirst?dcity=fsz&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY",
+   "last_ok": "2026-11-08T14:45:59+09:00",
    "last_error": null,
    "last_error_at": null,
    "advice": {
@@ -20,13 +20,13 @@
    }
   },
   {
-   "id": "FSZ",
-   "name": "静岡空港 ⇄ ソウル",
-   "from": "FSZ",
+   "id": "NGO",
+   "name": "中部国際空港 ⇄ ソウル",
+   "from": "NGO",
    "to": "SEL",
-   "target_price": 40000,
-   "search_url": "https://jp.trip.com/flights/showfarefirst?dcity=fsz&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY",
-   "last_ok": "2026-11-08T14:40:26+09:00",
+   "target_price": 30000,
+   "search_url": "https://jp.trip.com/flights/showfarefirst?dcity=ngo&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY",
+   "last_ok": "2026-11-08T14:45:59+09:00",
    "last_error": null,
    "last_error_at": null,
    "advice": {
