@@ -1,0 +1,32 @@
+name: watch-fares
+on:
+  schedule:
+    # 日本時間 7,9,11,...,23時（UTCで2時間おき。GitHubの都合で数分〜数十分遅れることあり）
+    - cron: "5 22,0,2,4,6,8,10,12,14 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: watch
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - name: fetch & notify
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          TZ: Asia/Tokyo
+        run: python src/main.py
+      - name: commit data
+        run: |
+          git config user.name "fare-bot"
+          git config user.email "fare-bot@users.noreply.github.com"
+          git add docs/data state
+          git diff --cached --quiet || git commit -m "fares $(date +%m/%d-%H:%M)"
+          git push

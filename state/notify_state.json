@@ -1,0 +1,17 @@
+{
+ "NGO": {
+  "last_sent": {},
+  "fail_streak": 0,
+  "fail_alerted": false,
+  "base_price": 32280
+ },
+ "FSZ": {
+  "last_sent": {},
+  "fail_streak": 0,
+  "fail_alerted": false,
+  "base_price": 41180
+ },
+ "_global": {
+  "summary_date": "2026-11-08"
+ }
+}
