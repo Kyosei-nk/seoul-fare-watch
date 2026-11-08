@@ -35,7 +35,7 @@ def main(argv: list[str]) -> int:
     page_url = cfg.get("page_url", "")
 
     out_routes, to_send = [], []
-    results = {}
+    results, advices = {}, {}
     for i, route in enumerate(cfg["routes"]):
         if i:
             time.sleep(random.uniform(5, 15))  # Trip.com への負荷を下げる
@@ -61,6 +61,15 @@ def main(argv: list[str]) -> int:
             h.append(obs)
             hist[route["id"]] = h
 
+        adv = rules.advise(route, hist.get(route["id"], []), now, cfg["depart_date"], cfg["advice"])
+        rs = nstate[route["id"]]
+        if obs:
+            an = rules.advice_note(route, adv, rs.get("advice_level"), obs["price"])
+            if an:
+                to_send.append((an, url))
+            rs["advice_level"] = adv["level"]
+        advices[route["id"]] = adv
+
         prev = old_routes.get(route["id"], {})
         out_routes.append({
             "id": route["id"], "name": route["name"], "from": route["from"], "to": route["to"],
@@ -68,13 +77,14 @@ def main(argv: list[str]) -> int:
             "last_ok": now.isoformat() if obs else prev.get("last_ok"),
             "last_error": err if err else prev.get("last_error") if not obs else None,
             "last_error_at": now.isoformat() if err else prev.get("last_error_at"),
+            "advice": adv,
         })
 
     # 毎朝のまとめ（その日の最初の実行で、指定時刻を過ぎていれば1回）
     today = now.date().isoformat()
     g = nstate.setdefault("_global", {})
     if ("--summary" in argv) or (now.hour >= cfg.get("daily_summary_hour_jst", 8) and g.get("summary_date") != today):
-        to_send.append((rules.daily_summary(cfg["routes"], hist, now, cfg["depart_date"]), page_url))
+        to_send.append((rules.daily_summary(cfg["routes"], hist, now, cfg["depart_date"], advices), page_url))
         g["summary_date"] = today
 
     save(DATA / "history.json", hist)

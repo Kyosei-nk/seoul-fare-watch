@@ -4,8 +4,20 @@
   "adults": 1,
   "cabin": "y",
   "routes": [
-    { "id": "NGO", "name": "中部国際空港 ⇄ ソウル", "from": "NGO", "to": "SEL", "target_price": null },
-    { "id": "FSZ", "name": "静岡空港 ⇄ ソウル", "from": "FSZ", "to": "SEL", "target_price": null }
+    {
+      "id": "NGO",
+      "name": "中部国際空港 ⇄ ソウル",
+      "from": "NGO",
+      "to": "SEL",
+      "target_price": 30000
+    },
+    {
+      "id": "FSZ",
+      "name": "静岡空港 ⇄ ソウル",
+      "from": "FSZ",
+      "to": "SEL",
+      "target_price": 40000
+    }
   ],
   "direct_only": false,
   "rules": {
@@ -19,7 +31,17 @@
     "sane_min": 5000,
     "sane_max": 300000
   },
-  "quiet_hours_jst": [1, 7],
+  "quiet_hours_jst": [
+    1,
+    7
+  ],
   "daily_summary_hour_jst": 8,
-  "page_url": "https://kyosei-nk.github.io/seoul-fare-watch/"
+  "page_url": "https://kyosei-nk.github.io/seoul-fare-watch/",
+  "advice": {
+    "buy_by_days": 21,
+    "urgent_days": 14,
+    "near_low_pct": 3,
+    "consider_days": 35,
+    "rise_from_low_yen": 1500
+  }
 }

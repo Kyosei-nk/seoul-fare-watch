@@ -48,6 +48,31 @@ def test_rise_24h():
     k = run([40000] * 12 + [45000])
     assert k[-1] == ["rise"]
 
+
+
+A = {"buy_by_days": 21, "urgent_days": 14, "near_low_pct": 3, "consider_days": 35, "rise_from_low_yen": 1500}
+DEP = "2026-12-20"
+
+def _h(prices):
+    return [{"price": p, "t": T0.isoformat()} for p in prices]
+
+def test_advice_levels():
+    at = lambda d: datetime(2026, 12, 20, 9, tzinfo=JST) - timedelta(days=d)
+    r = {**ROUTE, "target_price": 30000}
+    assert rules.advise(r, _h([33000, 32000]), at(42), DEP, A)["level"] == "wait"
+    assert rules.advise(r, _h([33000, 29900]), at(42), DEP, A)["level"] == "buy"      # 目標以下
+    assert rules.advise(r, _h([32000, 33000, 34000]), at(42), DEP, A)["level"] == "consider"  # 上昇中
+    assert rules.advise(r, _h([33000, 32100]), at(30), DEP, A)["level"] == "consider"  # 最安付近 & 35日以内
+    assert rules.advise(r, _h([33000, 35000]), at(20), DEP, A)["level"] == "buy"      # 期限
+    assert rules.advise(r, _h([33000]), at(10), DEP, A)["level"] == "urgent"
+
+def test_advice_note_only_on_upgrade():
+    adv = {"level": "buy", "label": "買い推奨", "reason": "x"}
+    assert rules.advice_note(ROUTE, adv, "consider", 30000)["kind"] == "advice"
+    assert rules.advice_note(ROUTE, adv, "buy", 30000) is None
+    assert rules.advice_note(ROUTE, {"level": "wait"}, None, 30000) is None
+
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"): f(); print("ok", n)

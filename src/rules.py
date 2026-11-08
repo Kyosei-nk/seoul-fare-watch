@@ -126,7 +126,7 @@ def evaluate(route: dict, history: list[dict], state: dict, obs: dict | None,
     return notes, state
 
 
-def daily_summary(routes: list[dict], histories: dict, now: datetime, depart: str) -> dict:
+def daily_summary(routes: list[dict], histories: dict, now: datetime, depart: str, advices: dict | None = None) -> dict:
     days = (datetime.fromisoformat(depart).date() - now.date()).days
     lines = []
     for r in routes:
@@ -139,8 +139,56 @@ def daily_summary(routes: list[dict], histories: dict, now: datetime, depart: st
         prev = _price_about(h, now - timedelta(hours=24))
         chg = f"（前日比 {signed_yen(cur - prev['price'])}）" if prev else ""
         lines.append(f"{r['name']}: {yen(cur)}{chg} 最安 {yen(low)}")
+        adv = (advices or {}).get(r["id"])
+        if adv:
+            lines.append(f"  └ 判断: {adv['label']}（{adv['reason']}）")
         hint = describe(h[-1])
         if hint:
             lines.append(f"  └ {hint}")
     return {"kind": "summary", "route": "*", "title": f"☀ 今日の航空券（出発まで{days}日）",
             "body": "\n".join(lines), "priority": PRIO_LOW, "tags": "airplane"}
+
+
+# ---------------- 買い時アドバイス ----------------
+LEVELS = {"wait": 0, "consider": 1, "buy": 2, "urgent": 3}
+LABELS = {"wait": "様子見", "consider": "買い検討", "buy": "買い推奨", "urgent": "今すぐ購入を"}
+
+
+def advise(route: dict, history: list[dict], now: datetime, depart: str, a: dict) -> dict:
+    """history（最新を含む）から買い時を判定。返り値 {level, label, reason}"""
+    def out(level, reason):
+        return {"level": level, "label": LABELS[level], "reason": reason}
+
+    if not history:
+        return out("wait", "データ待ち")
+    days = (datetime.fromisoformat(depart).date() - now.date()).days
+    price = history[-1]["price"]
+    low = min(h["price"] for h in history)
+    target = route.get("target_price")
+    by = (datetime.fromisoformat(depart).date() - timedelta(days=a["buy_by_days"]))
+    by_s = f"{by.month}/{by.day}"
+
+    if days <= a["urgent_days"]:
+        return out("urgent", f"出発まで{days}日。2週間前を切ると同じ路線で約2倍になる日が多い")
+    if target and price <= target:
+        return out("buy", f"目標 {yen(target)} 以下になりました")
+    if days <= a["buy_by_days"]:
+        return out("buy", f"出発まで{days}日。ここからは上がりやすく、下がる見込みは小さい")
+    last3 = [h["price"] for h in history[-3:]]
+    if len(last3) == 3 and last3[0] < last3[1] < last3[2] and price - low >= a["rise_from_low_yen"]:
+        return out("consider", f"3回続けて値上がり中（最安 {yen(low)} から {signed_yen(price - low)}）")
+    if days <= a["consider_days"] and price <= low * (1 + a["near_low_pct"] / 100):
+        return out("consider", f"これまでの最安に近い価格（最安 {yen(low)}）。購入目安の {by_s} まであと{days - a['buy_by_days']}日")
+    return out("wait", f"購入目安（出発3週間前の {by_s}）まであと{days - a['buy_by_days']}日。値下がりを待てます")
+
+
+def advice_note(route: dict, adv: dict, prev_level: str | None, price: int) -> dict | None:
+    """判定が上がったとき（様子見→検討→推奨→急ぎ）だけ通知"""
+    if prev_level is not None and LEVELS[adv["level"]] <= LEVELS[prev_level]:
+        return None
+    if adv["level"] == "wait":
+        return None
+    icon = {"consider": "🤔", "buy": "🛒", "urgent": "⏰"}[adv["level"]]
+    prio = {"consider": PRIO_DEFAULT, "buy": PRIO_HIGH, "urgent": PRIO_HIGH}[adv["level"]]
+    return {"kind": "advice", "route": route["id"], "title": f"{icon} {adv['label']}：{route['name']} {yen(price)}",
+            "body": adv["reason"], "priority": prio, "tags": "shopping_cart"}
