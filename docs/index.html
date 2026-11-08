@@ -171,8 +171,9 @@ function drawChart(box, h) {
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   const el = (n, a) => { const e = document.createElementNS(ns, n); for (const k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; };
   // 目盛り（3本）
-  for (let i = 0; i < 3; i++) {
-    const v = y0 + pad + (y1 - y0 - 2 * pad) * i / 2, y = Y(v);
+  const lo = Math.min(...ys), hi = Math.max(...ys);
+  for (const v of (lo === hi ? [lo] : [lo, (lo + hi) / 2, hi])) {
+    const y = Y(v);
     el("line", { x1: L, x2: W - R, y1: y, y2: y, stroke: "var(--grid)", "stroke-width": 1 });
     const t = el("text", { x: W - R + 6, y: y + 4, fill: "var(--text-3)", "font-size": 11 }); t.textContent = "¥" + (v / 1000).toFixed(1) + "k";
   }
