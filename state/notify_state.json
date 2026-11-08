@@ -3,13 +3,17 @@
   "last_sent": {},
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 32280
+  "base_price": 32280,
+  "target_hit_price": null,
+  "advice_level": "wait"
  },
  "FSZ": {
   "last_sent": {},
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 41180
+  "base_price": 41180,
+  "target_hit_price": null,
+  "advice_level": "wait"
  },
  "_global": {
   "summary_date": "2026-11-08"
