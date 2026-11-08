@@ -33,11 +33,6 @@ def describe(obs: dict) -> str:
     parts = [obs.get("airline") or ""]
     if "stops" in obs:
         parts.append("直行" if obs["stops"] == 0 else f"乗継{obs['stops']}回")
-    nb = obs.get("nearby") or {}
-    cheaper = {d: p for d, p in nb.items() if p < obs["price"]}
-    if cheaper:
-        d, p = min(cheaper.items(), key=lambda x: x[1])
-        parts.append(f"{d.replace('-', '/')}発なら{yen(p)}")
     if obs.get("out_dep"):
         parts.append(f"往 {obs['out_dep']}発")
     if obs.get("ret_dep"):

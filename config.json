@@ -5,18 +5,18 @@
   "cabin": "y",
   "routes": [
     {
-      "id": "NGO",
-      "name": "中部国際空港 ⇄ ソウル",
-      "from": "NGO",
-      "to": "SEL",
-      "target_price": 30000
-    },
-    {
       "id": "FSZ",
       "name": "静岡空港 ⇄ ソウル",
       "from": "FSZ",
       "to": "SEL",
       "target_price": 40000
+    },
+    {
+      "id": "NGO",
+      "name": "中部国際空港 ⇄ ソウル",
+      "from": "NGO",
+      "to": "SEL",
+      "target_price": 30000
     }
   ],
   "direct_only": false,
