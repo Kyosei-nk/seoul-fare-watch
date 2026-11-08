@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
       - run: pip install -r requirements.txt
       - name: fetch & notify
@@ -28,5 +28,5 @@ jobs:
           git config user.name "fare-bot"
           git config user.email "fare-bot@users.noreply.github.com"
           git add docs/data state
-          git diff --cached --quiet || git commit -m "fares $(date +%m/%d-%H:%M)"
+          git diff --cached --quiet || git commit -m "fares $(TZ=Asia/Tokyo date +%m/%d-%H:%M) JST"
           git push
