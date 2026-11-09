@@ -90,7 +90,7 @@ def main(argv: list[str]) -> int:
     today = now.date().isoformat()
     g = nstate.setdefault("_global", {})
     if ("--summary" in argv) or (now.hour >= cfg.get("daily_summary_hour_jst", 8) and g.get("summary_date") != today):
-        to_send.append((rules.daily_summary(cfg["routes"], hist, now, cfg["depart_date"], advices), page_url))
+        to_send.append((rules.daily_summary(cfg["routes"], hist, now, cfg["depart_date"], advices, cfg.get("card_discount_pct", 0)), page_url))
         g["summary_date"] = today
 
     # 深夜は通知を保留し、朝の最初の実行でまとめて送る
@@ -103,7 +103,8 @@ def main(argv: list[str]) -> int:
 
     save(DATA / "history.json", hist)
     save(DATA / "status.json", {"updated": now.isoformat(), "depart_date": cfg["depart_date"],
-                                "return_date": cfg["return_date"], "routes": out_routes})
+                                "return_date": cfg["return_date"], "routes": out_routes,
+                                "card_discount_pct": cfg.get("card_discount_pct", 0)})
     save(STATE / "notify_state.json", nstate)
 
     for note, url in to_send:

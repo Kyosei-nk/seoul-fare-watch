@@ -14,6 +14,11 @@ def signed_yen(n: int | float) -> str:
     return ("+" if n > 0 else "−" if n < 0 else "±") + f"{abs(int(round(n))):,}"
 
 
+def card_price(price: float, pct: float) -> int:
+    """Trip.com の決済カード割引（最大）を引いた検索画面の表示価格の目安。10円単位"""
+    return int(round(price * (1 - pct / 100) / 10) * 10)
+
+
 def _parse(t: str) -> datetime:
     return datetime.fromisoformat(t)
 
@@ -121,7 +126,8 @@ def evaluate(route: dict, history: list[dict], state: dict, obs: dict | None,
     return notes, state
 
 
-def daily_summary(routes: list[dict], histories: dict, now: datetime, depart: str, advices: dict | None = None) -> dict:
+def daily_summary(routes: list[dict], histories: dict, now: datetime, depart: str, advices: dict | None = None,
+                  card_pct: float = 0) -> dict:
     days = (datetime.fromisoformat(depart).date() - now.date()).days
     lines = []
     for r in routes:
@@ -134,6 +140,8 @@ def daily_summary(routes: list[dict], histories: dict, now: datetime, depart: st
         prev = _price_about(h, now - timedelta(hours=24))
         chg = f"（前日比 {signed_yen(cur - prev['price'])}）" if prev else ""
         lines.append(f"{r['name']}: {yen(cur)}{chg} 最安 {yen(low)}")
+        if card_pct:
+            lines.append(f"  └ 対象カード払いなら 約{yen(card_price(cur, card_pct))}")
         adv = (advices or {}).get(r["id"])
         if adv:
             lines.append(f"  └ 判断: {adv['label']}（{adv['reason']}）")

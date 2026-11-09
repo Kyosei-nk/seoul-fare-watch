@@ -44,5 +44,6 @@
     "consider_days": 35,
     "rise_from_low_yen": 1500
   },
-  "min_interval_minutes": 100
+  "min_interval_minutes": 100,
+  "card_discount_pct": 2.3
 }

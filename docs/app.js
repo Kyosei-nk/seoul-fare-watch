@@ -47,7 +47,11 @@ function render(hist, st) {
       const dayAgo = [...h].reverse().find(x => new Date(x.t) <= new Date(new Date(cur.t) - 864e5));
       const chip = (label, d) => d == null ? "" :
         `<span class="chip ${d < 0 ? "down" : d > 0 ? "up" : ""}">${label} ${d < 0 ? "▼" : d > 0 ? "▲" : ""}${sgn(d)}</span>`;
-      html += `<div class="price">${yen(cur.price)}</div><div class="chips">
+      const pct = st.card_discount_pct ?? 2.3;
+      const cardEst = Math.round(cur.price * (1 - pct / 100) / 10) * 10;
+      html += `<div class="price">${yen(cur.price)}</div>
+      ${pct ? `<div class="card-est">対象カード払いなら <b>約${yen(cardEst)}</b>（−約${yen(cur.price - cardEst).slice(1)}円）<br><span>Trip.com の検索画面に出る価格はこちらに近い</span></div>` : ""}
+      <div class="chips">
         ${chip("前回比", prev ? cur.price - prev.price : null)}
         ${chip("24時間比", dayAgo ? cur.price - dayAgo.price : null)}
         <span class="chip">最安 ${yen(low.price)}（${fmtT(low.t)}）</span>
