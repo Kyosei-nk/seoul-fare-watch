@@ -24,12 +24,18 @@ def main(argv: list[str]) -> int:
     cfg = load_config()
     now = datetime.now(JST).replace(microsecond=0)
     q0, q1 = cfg.get("quiet_hours_jst", [1, 7])
-    if q0 <= now.hour < q1 and "--force" not in argv:
-        print(f"深夜帯（{q0}〜{q1}時）なのでスキップ")
-        return 0
+    quiet = q0 <= now.hour < q1
 
     hist = load(DATA / "history.json", {})
     status = load(DATA / "status.json", {})
+
+    # GitHub の定期実行は遅れたり抜けたりするので、30分おきに起動して
+    # 「前回の成功から一定時間たっていたら取得する」方式にしている
+    oks = [datetime.fromisoformat(r["last_ok"]) for r in status.get("routes", []) if r.get("last_ok")]
+    gap = int(cfg.get("min_interval_minutes", 100))
+    if oks and "--force" not in argv and now - max(oks) < timedelta(minutes=gap):
+        print(f"前回の取得から {int((now - max(oks)).total_seconds() // 60)} 分なのでスキップ（{gap}分おき）")
+        return 0
     nstate = load(STATE / "notify_state.json", {})
     old_routes = {r["id"]: r for r in status.get("routes", [])}
     page_url = cfg.get("page_url", "")
@@ -86,6 +92,14 @@ def main(argv: list[str]) -> int:
     if ("--summary" in argv) or (now.hour >= cfg.get("daily_summary_hour_jst", 8) and g.get("summary_date") != today):
         to_send.append((rules.daily_summary(cfg["routes"], hist, now, cfg["depart_date"], advices), page_url))
         g["summary_date"] = today
+
+    # 深夜は通知を保留し、朝の最初の実行でまとめて送る
+    if quiet and "--force" not in argv:
+        g["deferred"] = g.get("deferred", []) + [[n, u] for n, u in to_send]
+        print(f"深夜帯なので通知 {len(to_send)} 件を保留")
+        to_send = []
+    else:
+        to_send = [tuple(x) for x in g.pop("deferred", [])] + to_send
 
     save(DATA / "history.json", hist)
     save(DATA / "status.json", {"updated": now.isoformat(), "depart_date": cfg["depart_date"],

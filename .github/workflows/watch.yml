@@ -1,8 +1,9 @@
 name: watch-fares
 on:
   schedule:
-    # 日本時間 7,9,11,...,23時（UTCで2時間おき。GitHubの都合で数分〜数十分遅れることあり）
-    - cron: "5 22,0,2,4,6,8,10,12,14 * * *"
+    # 30分おきに起動。実際の取得は前回成功から100分以上たったときだけ（main.py が判定）。
+    # GitHub の定期実行は混雑時に数時間遅れたり抜けたりするため、起動回数を多めにしている。
+    - cron: "17,47 * * * *"
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -22,7 +23,7 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           TZ: Asia/Tokyo
-        run: python src/main.py
+        run: python src/main.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
       - name: commit data
         run: |
           git config user.name "fare-bot"

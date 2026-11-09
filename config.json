@@ -43,5 +43,6 @@
     "near_low_pct": 3,
     "consider_days": 35,
     "rise_from_low_yen": 1500
-  }
+  },
+  "min_interval_minutes": 100
 }
