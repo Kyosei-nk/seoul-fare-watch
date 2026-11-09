@@ -11,11 +11,11 @@
  },
  "FSZ": {
   "last_sent": {
-   "low": "2026-11-09T16:12:52+09:00"
+   "low": "2026-11-09T20:29:35+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 40660,
+  "base_price": 40610,
   "target_hit_price": null,
   "advice_level": "wait"
  },
