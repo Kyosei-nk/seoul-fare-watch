@@ -4,7 +4,14 @@ on:
     # 30分おきに起動。実際の取得は前回成功から100分以上たったときだけ（main.py が判定）。
     # GitHub の定期実行は混雑時に数時間遅れたり抜けたりするため、起動回数を多めにしている。
     - cron: "17,47 * * * *"
-  workflow_dispatch: {}
+  # 手動の「Run workflow」は force=true（すぐ取得・深夜でも通知）。
+  # 外部cron（cron-job.org）は API から force=false で呼ぶので、100分おき・深夜保留のルールが効く。
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "間隔・深夜ルールを無視してすぐ取得"
+        type: boolean
+        default: true
 permissions:
   contents: write
 concurrency:
@@ -23,7 +30,7 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           TZ: Asia/Tokyo
-        run: python src/main.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+        run: python src/main.py ${{ inputs.force == true && '--force' || '' }}
       - name: commit data
         run: |
           git config user.name "fare-bot"
