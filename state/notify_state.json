@@ -1,13 +1,14 @@
 {
  "NGO": {
   "last_sent": {
-   "low": "2026-11-09T16:12:52+09:00"
+   "low": "2026-11-09T16:12:52+09:00",
+   "target": "2026-11-11T10:55:48+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 31460,
-  "target_hit_price": null,
-  "advice_level": "wait"
+  "base_price": 28850,
+  "target_hit_price": 28850,
+  "advice_level": "buy"
  },
  "FSZ": {
   "last_sent": {
@@ -20,7 +21,6 @@
   "advice_level": "wait"
  },
  "_global": {
-  "summary_date": "2026-11-10",
-  "deferred": []
+  "summary_date": "2026-11-11"
  }
 }
