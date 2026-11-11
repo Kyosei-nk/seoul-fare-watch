@@ -2,39 +2,27 @@
  "NGO": {
   "last_sent": {
    "low": "2026-11-09T16:12:52+09:00",
-   "target": "2026-11-11T10:55:48+09:00"
+   "target": "2026-11-11T10:55:48+09:00",
+   "rise": "2026-11-12T08:43:48+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 28850,
+  "base_price": 35130,
   "target_hit_price": null,
   "advice_level": "consider"
  },
  "FSZ": {
   "last_sent": {
    "low": "2026-11-09T20:29:35+09:00",
-   "target": "2026-11-12T02:27:57+09:00"
+   "target": "2026-11-12T08:43:48+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 39510,
-  "target_hit_price": 39510,
+  "base_price": 39120,
+  "target_hit_price": 39120,
   "advice_level": "buy"
  },
  "_global": {
-  "summary_date": "2026-11-11",
-  "deferred": [
-   [
-    {
-     "kind": "target",
-     "route": "FSZ",
-     "title": "🎯 目標価格以下！ 静岡空港 ⇄ ソウル ¥39,510",
-     "body": "目標 ¥40,000 以下になりました。",
-     "priority": "high",
-     "tags": "dart"
-    },
-    "https://jp.trip.com/flights/showfarefirst?dcity=fsz&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY"
-   ]
-  ]
+  "summary_date": "2026-11-12"
  }
 }
