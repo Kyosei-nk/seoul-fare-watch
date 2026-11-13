@@ -23,41 +23,6 @@
   "advice_level": "buy"
  },
  "_global": {
-  "summary_date": "2026-11-12",
-  "deferred": [
-   [
-    {
-     "kind": "target",
-     "route": "FSZ",
-     "title": "🎯 目標価格以下！ 静岡空港 ⇄ ソウル ¥35,770",
-     "body": "目標 ¥40,000 以下になりました。",
-     "priority": "high",
-     "tags": "dart"
-    },
-    "https://jp.trip.com/flights/showfarefirst?dcity=fsz&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY"
-   ],
-   [
-    {
-     "kind": "rise",
-     "route": "NGO",
-     "title": "▲ 値上がり 中部国際空港 ⇄ ソウル ¥36,750",
-     "body": "24時間前 ¥32,120 から +4,630。買うなら早めに検討を。",
-     "priority": "low",
-     "tags": "chart_with_upwards_trend"
-    },
-    "https://jp.trip.com/flights/showfarefirst?dcity=ngo&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY"
-   ],
-   [
-    {
-     "kind": "advice",
-     "route": "NGO",
-     "title": "🤔 買い検討：中部国際空港 ⇄ ソウル ¥36,750",
-     "body": "3回続けて値上がり中（最安 ¥28,850 から +7,900）",
-     "priority": "default",
-     "tags": "shopping_cart"
-    },
-    "https://jp.trip.com/flights/showfarefirst?dcity=ngo&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY"
-   ]
-  ]
+  "summary_date": "2026-11-13"
  }
 }
