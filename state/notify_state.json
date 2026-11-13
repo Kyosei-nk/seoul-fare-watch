@@ -9,7 +9,7 @@
   "fail_alerted": false,
   "base_price": 36750,
   "target_hit_price": null,
-  "advice_level": "consider"
+  "advice_level": "wait"
  },
  "FSZ": {
   "last_sent": {
