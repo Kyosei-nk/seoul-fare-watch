@@ -14,12 +14,12 @@
  "FSZ": {
   "last_sent": {
    "low": "2026-11-09T20:29:35+09:00",
-   "target": "2026-11-18T10:19:55+09:00"
+   "target": "2026-11-18T18:10:10+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 34840,
-  "target_hit_price": 34840,
+  "base_price": 34800,
+  "target_hit_price": 34800,
   "advice_level": "buy"
  },
  "_global": {
