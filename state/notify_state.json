@@ -9,7 +9,7 @@
   "fail_alerted": false,
   "base_price": 36750,
   "target_hit_price": null,
-  "advice_level": "wait"
+  "advice_level": "consider"
  },
  "FSZ": {
   "last_sent": {
@@ -24,6 +24,19 @@
   "advice_level": "wait"
  },
  "_global": {
-  "summary_date": "2026-11-20"
+  "summary_date": "2026-11-20",
+  "deferred": [
+   [
+    {
+     "kind": "advice",
+     "route": "NGO",
+     "title": "🤔 買い検討：中部国際空港 ⇄ ソウル ¥41,730",
+     "body": "3回続けて値上がり中（最安 ¥28,850 から +12,880）",
+     "priority": "default",
+     "tags": "shopping_cart"
+    },
+    "https://jp.trip.com/flights/showfarefirst?dcity=ngo&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY"
+   ]
+  ]
  }
 }
