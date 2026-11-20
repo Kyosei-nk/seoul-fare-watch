@@ -62,14 +62,17 @@ def main(argv: list[str]) -> int:
 
         h = hist.get(route["id"], [])
         notes, nstate[route["id"]] = rules.evaluate(route, h, nstate.get(route["id"], {}), obs, err, now, cfg["rules"])
-        to_send += [(n, url) for n in notes]
+        if not route.get("purchased"):  # 購入済みの路線は価格の記録だけ続けて通知しない
+            to_send += [(n, url) for n in notes]
         if obs:
             h.append(obs)
             hist[route["id"]] = h
 
         adv = rules.advise(route, hist.get(route["id"], []), now, cfg["depart_date"], cfg["advice"])
         rs = nstate[route["id"]]
-        if obs:
+        if route.get("purchased"):
+            adv = {"level": "done", "label": "購入済み", "reason": "通知はオフ。価格の記録だけ続けています"}
+        elif obs:
             an = rules.advice_note(route, adv, rs.get("advice_level"), obs["price"])
             if an:
                 to_send.append((an, url))
@@ -90,7 +93,7 @@ def main(argv: list[str]) -> int:
     today = now.date().isoformat()
     g = nstate.setdefault("_global", {})
     if ("--summary" in argv) or (now.hour >= cfg.get("daily_summary_hour_jst", 8) and g.get("summary_date") != today):
-        to_send.append((rules.daily_summary(cfg["routes"], hist, now, cfg["depart_date"], advices, cfg.get("card_discount_pct", 0)), page_url))
+        to_send.append((rules.daily_summary([r for r in cfg["routes"] if not r.get("purchased")], hist, now, cfg["depart_date"], advices, cfg.get("card_discount_pct", 0)), page_url))
         g["summary_date"] = today
 
     # 深夜は通知を保留し、朝の最初の実行でまとめて送る

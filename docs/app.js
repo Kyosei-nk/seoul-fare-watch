@@ -57,7 +57,7 @@ function render(hist, st) {
         <span class="chip">最安 ${yen(low.price)}（${fmtT(low.t)}）</span>
         ${r.target_price ? `<span class="chip ${cur.price <= r.target_price ? "down" : ""}">目標 ${yen(r.target_price)} ${cur.price <= r.target_price ? "達成🎯" : "まであと " + yen(cur.price - r.target_price)}</span>` : ""}
       </div>
-      ${r.advice ? `<div class="advice ${esc(r.advice.level)}"><b>${{wait:"⏳",consider:"🤔",buy:"🛒",urgent:"⏰"}[r.advice.level] || ""} ${esc(r.advice.label)}</b><span>${esc(r.advice.reason)}</span></div>` : ""}
+      ${r.advice ? `<div class="advice ${esc(r.advice.level)}"><b>${{wait:"⏳",consider:"🤔",buy:"🛒",urgent:"⏰",done:"✅"}[r.advice.level] || ""} ${esc(r.advice.label)}</b><span>${esc(r.advice.reason)}</span></div>` : ""}
       ${cur.airline ? `<div class="detail"><b>${esc(cur.airline)}</b> ・ ${cur.stops ? "乗継" + cur.stops + "回" : "直行"}</div>` : ""}
       ${r.last_error && new Date(r.last_error_at) > new Date(cur.t) ? `<div class="detail" style="color:var(--warn)">直近の取得は失敗: ${esc(r.last_error)}</div>` : ""}
       <div class="chart"><svg role="img" aria-label="${esc(r.name)}の価格推移"></svg><div class="tip"></div></div>
