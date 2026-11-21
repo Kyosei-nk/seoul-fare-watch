@@ -9,21 +9,21 @@
   "fail_alerted": false,
   "base_price": 43540,
   "target_hit_price": null,
-  "advice_level": "consider"
+  "advice_level": "wait"
  },
  "FSZ": {
   "last_sent": {
    "low": "2026-11-09T20:29:35+09:00",
-   "target": "2026-11-18T18:10:10+09:00",
+   "target": "2026-11-21T12:29:45+09:00",
    "rise": "2026-11-20T08:50:56+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 50600,
-  "target_hit_price": null,
+  "base_price": 35830,
+  "target_hit_price": 35830,
   "advice_level": "wait"
  },
  "_global": {
-  "summary_date": "2026-11-20"
+  "summary_date": "2026-11-21"
  }
 }
