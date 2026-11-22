@@ -24,6 +24,7 @@
   "advice_level": "wait"
  },
  "_global": {
-  "summary_date": "2026-11-22"
+  "summary_date": "2026-11-22",
+  "deferred": []
  }
 }
