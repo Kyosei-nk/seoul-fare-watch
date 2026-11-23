@@ -16,11 +16,11 @@
   "last_sent": {
    "low": "2026-11-09T20:29:35+09:00",
    "target": "2026-11-21T12:29:45+09:00",
-   "rise": "2026-11-20T08:50:56+09:00"
+   "rise": "2026-11-24T07:02:33+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 35830,
+  "base_price": 39690,
   "target_hit_price": 35830,
   "advice_level": "wait"
  },
