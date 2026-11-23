@@ -3,11 +3,12 @@
   "last_sent": {
    "low": "2026-11-09T16:12:52+09:00",
    "target": "2026-11-11T10:55:48+09:00",
-   "rise": "2026-11-21T20:48:02+09:00"
+   "rise": "2026-11-21T20:48:02+09:00",
+   "drop": "2026-11-23T18:47:55+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 43540,
+  "base_price": 40760,
   "target_hit_price": null,
   "advice_level": "wait"
  },
