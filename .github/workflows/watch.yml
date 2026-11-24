@@ -5,7 +5,7 @@ on:
     # GitHub の定期実行は混雑時に数時間遅れたり抜けたりするため、起動回数を多めにしている。
     - cron: "17,47 * * * *"
   # 手動の「Run workflow」は force=true（すぐ取得・深夜でも通知）。
-  # 外部cron（cron-job.org）は API から force=false で呼ぶので、100分おき・深夜保留のルールが効く。
+  # 外部cron（cron-job.org）は API から force=false で呼ぶので、間隔（config の min_interval_minutes）・深夜保留のルールが効く。
   workflow_dispatch:
     inputs:
       force:
