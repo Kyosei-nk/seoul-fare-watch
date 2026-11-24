@@ -4,11 +4,11 @@
    "low": "2026-11-09T16:12:52+09:00",
    "target": "2026-11-11T10:55:48+09:00",
    "rise": "2026-11-21T20:48:02+09:00",
-   "drop": "2026-11-23T18:47:55+09:00"
+   "drop": "2026-11-24T14:41:21+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 40760,
+  "base_price": 38160,
   "target_hit_price": null,
   "advice_level": "wait"
  },
@@ -16,15 +16,15 @@
   "last_sent": {
    "low": "2026-11-09T20:29:35+09:00",
    "target": "2026-11-21T12:29:45+09:00",
-   "rise": "2026-11-24T07:02:33+09:00"
+   "rise": "2026-11-24T14:41:21+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 39690,
-  "target_hit_price": 35830,
+  "base_price": 60270,
+  "target_hit_price": null,
   "advice_level": "wait"
  },
  "_global": {
-  "summary_date": "2026-11-23"
+  "summary_date": "2026-11-24"
  }
 }
