@@ -9,7 +9,8 @@
       "name": "中部国際空港 ⇄ ソウル",
       "from": "NGO",
       "to": "SEL",
-      "target_price": 35800
+      "target_price": 35800,
+      "purchased": true
     },
     {
       "id": "FSZ",

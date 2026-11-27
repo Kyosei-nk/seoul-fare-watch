@@ -26,6 +26,11 @@ def main(argv: list[str]) -> int:
     q0, q1 = cfg.get("quiet_hours_jst", [1, 7])
     quiet = q0 <= now.hour < q1
 
+    # 帰国日を過ぎたら記録を止める（ワークフローは動いても何もしない）
+    if now.date().isoformat() > cfg["return_date"]:
+        print(f"帰国日 {cfg['return_date']} を過ぎたので記録を終了しています")
+        return 0
+
     hist = load(DATA / "history.json", {})
     status = load(DATA / "status.json", {})
 
@@ -92,8 +97,9 @@ def main(argv: list[str]) -> int:
     # 毎朝のまとめ（その日の最初の実行で、指定時刻を過ぎていれば1回）
     today = now.date().isoformat()
     g = nstate.setdefault("_global", {})
-    if ("--summary" in argv) or (now.hour >= cfg.get("daily_summary_hour_jst", 8) and g.get("summary_date") != today):
-        to_send.append((rules.daily_summary([r for r in cfg["routes"] if not r.get("purchased")], hist, now, cfg["depart_date"], advices, cfg.get("card_discount_pct", 0)), page_url))
+    active = [r for r in cfg["routes"] if not r.get("purchased")]
+    if active and (("--summary" in argv) or (now.hour >= cfg.get("daily_summary_hour_jst", 8) and g.get("summary_date") != today)):
+        to_send.append((rules.daily_summary(active, hist, now, cfg["depart_date"], advices, cfg.get("card_discount_pct", 0)), page_url))
         g["summary_date"] = today
 
     # 深夜は通知を保留し、朝の最初の実行でまとめて送る
