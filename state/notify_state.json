@@ -17,11 +17,11 @@
    "low": "2026-11-09T20:29:35+09:00",
    "target": "2026-11-21T12:29:45+09:00",
    "rise": "2026-11-25T10:00:47+09:00",
-   "drop": "2026-11-25T13:00:48+09:00"
+   "drop": "2026-11-27T23:30:43+09:00"
   },
   "fail_streak": 0,
   "fail_alerted": false,
-  "base_price": 53450,
+  "base_price": 50830,
   "target_hit_price": null,
   "advice_level": "wait"
  },
