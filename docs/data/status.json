@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T14:00:52+09:00",
+ "updated": "2026-11-27T14:30:43+09:00",
  "depart_date": "2026-12-20",
  "return_date": "2026-12-22",
  "routes": [
@@ -10,13 +10,13 @@
    "to": "SEL",
    "target_price": 35800,
    "search_url": "https://jp.trip.com/flights/showfarefirst?dcity=ngo&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY",
-   "last_ok": "2026-11-27T14:00:52+09:00",
+   "last_ok": "2026-11-27T14:30:43+09:00",
    "last_error": null,
    "last_error_at": null,
    "advice": {
-    "level": "buy",
-    "label": "買い推奨",
-    "reason": "目標 ¥35,800 以下になりました"
+    "level": "done",
+    "label": "購入済み",
+    "reason": "通知はオフ。価格の記録だけ続けています"
    }
   },
   {
@@ -26,7 +26,7 @@
    "to": "SEL",
    "target_price": 40000,
    "search_url": "https://jp.trip.com/flights/showfarefirst?dcity=fsz&acity=sel&ddate=2026-12-20&rdate=2026-12-22&triptype=rt&class=y&quantity=1&locale=ja-JP&curr=JPY",
-   "last_ok": "2026-11-27T14:00:52+09:00",
+   "last_ok": "2026-11-27T14:30:43+09:00",
    "last_error": null,
    "last_error_at": null,
    "advice": {
