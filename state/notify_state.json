@@ -6,7 +6,7 @@
    "rise": "2026-11-21T20:48:02+09:00",
    "drop": "2026-11-24T14:41:21+09:00"
   },
-  "fail_streak": 1,
+  "fail_streak": 2,
   "fail_alerted": false,
   "base_price": 33830,
   "target_hit_price": 33830,
